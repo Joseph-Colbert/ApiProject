@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.josephcolbert.apitesting'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+def cucumberVersion = '8.0.4'
+def restAssuredVersion = '6.0.1'
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:6.0.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    testImplementation "io.cucumber:cucumber-java:${cucumberVersion}"
+    testImplementation "io.cucumber:cucumber-junit-platform-engine:${cucumberVersion}"
+    testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.22.0'
+    testImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.22.0'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+tasks.register('cucumber', JavaExec) {
+    group = 'verification'
+    description = 'Ejecuta el flujo E2E de Todo.ly y genera el reporte HTML.'
+    dependsOn testClasses
+    mainClass.set('io.cucumber.core.cli.Main')
+    classpath = configurations.cucumberRuntime + sourceSets.test.output
+    args(
+        '--plugin', 'pretty',
+        '--plugin', 'html:build/reports/cucumber/cucumber.html',
+        '--glue', 'com.josephcolbert.apitesting.steps',
+        '--tags', providers.gradleProperty('cucumberTags').getOrElse('@e2e'),
+        'src/test/resources/features'
+    )
+}
+

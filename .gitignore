@@ -1,0 +1,10 @@
+.gradle/
+.gradle-user-home/
+build/
+target/
+.idea/
+*.iml
+.env
+*.log
+output/pdf/*.png
+

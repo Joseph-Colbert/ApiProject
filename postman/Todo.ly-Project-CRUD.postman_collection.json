@@ -5,19 +5,6 @@
     "description": "Flujo manual equivalente al escenario Cucumber: crea usuario, obtiene token y ejecuta CRUD de proyecto.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "exec": [
-          "if (!pm.environment.get('email')) {",
-          "  pm.environment.set('email', `apitesting+${Date.now()}@example.com`);",
-          "}"
-        ]
-      }
-    }
-  ],
   "item": [
     {
       "name": "01 - Crear usuario",
@@ -30,10 +17,17 @@
         },
         "url": "{{baseUrl}}/api/user.json"
       },
-      "event": [{"listen": "test", "script": {"type": "text/javascript", "exec": [
-        "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
-        "pm.test('Email creado', () => pm.expect(pm.response.json().Email).to.eql(pm.environment.get('email')));"
-      ]}}]
+      "event": [
+        {"listen": "prerequest", "script": {"type": "text/javascript", "exec": [
+          "pm.environment.set('email', `apitesting+${Date.now()}@example.com`);",
+          "pm.environment.unset('token');",
+          "pm.environment.unset('projectId');"
+        ]}},
+        {"listen": "test", "script": {"type": "text/javascript", "exec": [
+          "pm.test('HTTP 200', () => pm.response.to.have.status(200));",
+          "pm.test('Email creado', () => pm.expect(pm.response.json().Email).to.eql(pm.environment.get('email')));"
+        ]}}
+      ]
     },
     {
       "name": "02 - Obtener token",

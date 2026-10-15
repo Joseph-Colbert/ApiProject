@@ -61,8 +61,6 @@ src/test/resources/features/
 postman/
 ```
 
-El PDF de entrega se encuentra en `../output/pdf/Informe_Automatizacion_API_Todoly.pdf`.
-
 ## Documentacion de referencia
 
 - Todo.ly API Wiki: https://todo.ly/ApiWiki/

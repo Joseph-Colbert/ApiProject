@@ -9,7 +9,7 @@ Proyecto de evaluacion para automatizar con **Java 17, Gradle, Cucumber y Rest A
 5. Actualizar el proyecto.
 6. Eliminar el proyecto.
 
-La implementacion separa configuracion, cliente HTTP, estado del escenario y pasos BDD. No contiene usuarios, contrasenas ni tokens reales del proyecto de referencia.
+La implementacion conserva la estructura del proyecto de referencia: clientes HTTP separados por metodo, configuracion y steps dentro de `runner`. No contiene usuarios, contrasenas ni tokens reales del proyecto de referencia.
 
 ## Requisitos
 
@@ -18,6 +18,8 @@ La implementacion separa configuracion, cliente HTTP, estado del escenario y pas
 - PowerShell, CMD o una terminal compatible.
 
 ## Ejecutar
+
+Ejecutar desde esta carpeta (`ApiTesting/api`).
 
 En Windows:
 
@@ -42,25 +44,24 @@ Variables opcionales:
 
 Importar en Postman, en este orden:
 
-1. `postman`
-2. `postman`
+1. `postman/Todo.ly-Project-CRUD.postman_collection.json`
+2. `postman/Todo.ly.postman_environment.json`
 
 Seleccionar el environment **Todo.ly Local** y ejecutar la coleccion completa. Los scripts guardan automaticamente `email`, `token` y `projectId`.
 
 ## Estructura
 
 ```text
-src/test/java/com/josephcolbert/apitesting/
-  client/      Cliente Rest Assured y autenticacion
+src/test/java/
+  client/      Factory e implementaciones GET, POST, PUT y DELETE
   config/      Configuracion por entorno
-  context/     Estado aislado del escenario
-  steps/       Definiciones Cucumber
+  runner/      Hooks y definiciones Cucumber
 src/test/resources/features/
   project_crud_token.feature
 postman/
-docs/
-output/pdf/
 ```
+
+El PDF de entrega se encuentra en `../output/pdf/Informe_Automatizacion_API_Todoly.pdf`.
 
 ## Documentacion de referencia
 

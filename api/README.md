@@ -1,5 +1,4 @@
 # Automatizacion API Todo.ly
-
 Proyecto de evaluacion para automatizar con **Java 17, Gradle, Cucumber y Rest Assured** el flujo:
 
 1. Crear un usuario temporal.
@@ -10,6 +9,12 @@ Proyecto de evaluacion para automatizar con **Java 17, Gradle, Cucumber y Rest A
 6. Eliminar el proyecto.
 
 La implementacion conserva la estructura del proyecto de referencia: clientes HTTP separados por metodo, configuracion y steps dentro de `runner`. No contiene usuarios, contrasenas ni tokens reales del proyecto de referencia.
+
+## Integrantes
+
+- Joseph Jonathan Colbert Martinez
+- Oscar Serguei Segales Chapi
+- David Soliz Garcia
 
 ## Requisitos
 
